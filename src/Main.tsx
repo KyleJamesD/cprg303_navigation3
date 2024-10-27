@@ -15,6 +15,7 @@ import {
   } from 'react-native';
 
 
+  import { useState } from 'react';
   import { NavigationContainer } from "@react-navigation/native";
   import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -24,6 +25,9 @@ import Transactions from './components/Transaction';
   const Stack = createNativeStackNavigator();
 
   function Main() : React.JSX.Element {            
+
+
+    //***********************************Screen options funciotns (the Header)*************************************** */
 
             function headerRightButton( title: string) : React.JSX.Element {
               return (
@@ -48,9 +52,17 @@ import Transactions from './components/Transaction';
             );
         }
 
+        //***********************Radio Button Functions**************************** */
+
+
+        //***************************InputBox********************************** */
+          const [inputTxt, setInputTxt] = useState('');
+          
+
     return (
 
-        <NavigationContainer>
+        <NavigationContainer >
+          <View style={styles.container}>
               <Stack.Navigator 
               initialRouteName="Transactions"
               // Add common header style to all the screens.
@@ -89,6 +101,7 @@ import Transactions from './components/Transaction';
 
 
               </Stack.Navigator>
+              </View>
       </NavigationContainer>
             
 
@@ -97,14 +110,15 @@ import Transactions from './components/Transaction';
 
   const styles = StyleSheet.create({
     container:{
+      flex: 1,
 
     },
     item: {
         
     },
     iconstyle: {
-      width: 20,  // Set the width of the image
-      height: 20, // Set the height of the image
+      width: 40,  // Set the width of the image
+      height: 40, // Set the height of the image
       },
   }) 
 
