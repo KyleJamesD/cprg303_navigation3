@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     SafeAreaView,
     ScrollView,
@@ -15,12 +15,17 @@ import {
 
   function Transactions({navigation} : {navigation : any}) : React.JSX.Element {
 
+
+
+
+    
     function plusButtonPress () {
       console.log ('Pressed the plus button')
-      navigation.navigate("AddTransactions");
+      navigation.navigate('AddTransactions');
     }
 
 
+    
 
     return (
         <View>

@@ -60,6 +60,9 @@ import Transactions from './components/Transaction';
           const [inputTxt, setInputTxt] = useState('');
           
 
+    //***************************Object Array of transactions********************************** */
+          const [transactionArray,settransactionArray] = useState([]);
+
     return (
 
         <NavigationContainer >
@@ -87,6 +90,7 @@ import Transactions from './components/Transaction';
                                           title: "Transactions",
                                           headerRight: ()=>headerRightButton("About"),
                                       }}
+                                      
                                       />
 
                                       <Stack.Screen
@@ -99,6 +103,7 @@ import Transactions from './components/Transaction';
                                       // You can set initial paramters in route object.
                                       //initialParams={{id: -1, desc: "default description"}}
                                       // using a function to set Options 
+                                      
                                       />
 
 

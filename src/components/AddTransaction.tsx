@@ -25,9 +25,12 @@ import {
 
 
 
-  function AddTransaction({navigation} : {navigation : any}) : React.JSX.Element {
+  function AddTransaction({navigation }: {navigation: any }) : React.JSX.Element {
 
-    //***************************InputBox********************************** */
+
+
+
+    //***************************InputBox states and error reset********************************** */
         const [inputTxtTitle, setInputTxtTitle] = useState('');
         const [inputTxtDescription, setInputTxtDescription] = useState('');
         const [inputTxtCost, setInputTxtCost] = useState('');
@@ -43,11 +46,12 @@ import {
             seterrorCheckDescription(false)
         }
         function inputsetter3 (newTxtCost : string) {
-            setInputTxtCost(newTxtCost)
+            const numericText = newTxtCost.replace(/[^0-9]/g, "");
+            setInputTxtCost(numericText)
             seterrorCheckAmount(false)
         }
 
-//***************************UseState for Error Message conditional Render********************************** */
+//***************************UseState for Error Message and conditional Render********************************** */
         const [errorCheckTitle,seterrorCheckTitle] = useState(false);
         const [errorCheckDescription,seterrorCheckDescription] = useState(false);
         const [errorCheckAmount,seterrorCheckAmount] = useState(false);
