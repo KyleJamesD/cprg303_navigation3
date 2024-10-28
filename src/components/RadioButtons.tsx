@@ -22,24 +22,24 @@ import {
 
     const radioButtons: RadioButtonProps[] = useMemo(() => ([
         {
-            id: '1', // acts as primary key, should be unique and non-empty string
+            id: '0', // acts as primary key, should be unique and non-empty string
             label: 'Essential',
             value: 'option1',
         },
         {
-            id: '2',
+            id: '1',
             label: 'Leisure',
             value: 'option2'
         },
         {
-            id: '3',
+            id: '2',
             label: 'Others',
             value: 'option3'
         }
     ]
         ), []);
 
-    const [selectedId, setSelectedId] = useState<string >('1');
+    const [selectedId, setSelectedId] = useState<string >('0');
 
     //console.log(selectedId)
     //console.log(selectedId);

@@ -154,9 +154,9 @@ export function getTransactionByType( type : TransactionType ) : Array<Transacti
 /**
  * 
  * @returns Unique id string that can be used while creating new TransactionEntry object.
- */
-export function getNewID() : string {
+ * export function getNewID() : string {
     const id = String(uuid.v4());
     console.log(`ID is : ${id}`);
     return id;
 }
+ */

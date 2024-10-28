@@ -65,7 +65,7 @@ import { useEffect } from "react";
         const [inputTxtDescription, setInputTxtDescription] = useState('');
         const [inputTxtCost, setInputTxtCost] = useState('');
 
-        const [radioType, setradioType] = useState('1');
+        const [radioType, setradioType] = useState('0');
 
 
         function inputsetter1 (newTxtTitle : string) {
