@@ -14,6 +14,7 @@ import {
     setInputTxt: (text: string) => void;
     inputAreaLines: number;
     placeholderword: string;
+    inputType?: "default" | "numeric";
 };
 
 
@@ -23,6 +24,7 @@ import {
     let setInputTxt = props.setInputTxt;
     let inputAreaLines = props.inputAreaLines;
     let placeholderWord = props.placeholderword;
+    let inputType = props.inputType;
 
     
 
@@ -40,6 +42,7 @@ return (
     value={inputTxt}
     onChangeText={handleInput}
     numberOfLines={inputAreaLines}
+    keyboardType={inputType} 
     />
     </View>
     );

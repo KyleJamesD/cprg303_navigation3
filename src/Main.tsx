@@ -18,6 +18,7 @@ import {
   import { useState } from 'react';
   import { NavigationContainer } from "@react-navigation/native";
   import { createNativeStackNavigator } from "@react-navigation/native-stack";
+  import { Keyboard,TouchableWithoutFeedback } from 'react-native';
 
 import AddTransaction from './components/AddTransaction';
 import Transactions from './components/Transaction';
@@ -62,6 +63,7 @@ import Transactions from './components/Transaction';
     return (
 
         <NavigationContainer >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.container}>
               <Stack.Navigator 
               initialRouteName="Transactions"
@@ -102,6 +104,7 @@ import Transactions from './components/Transaction';
 
               </Stack.Navigator>
               </View>
+              </TouchableWithoutFeedback>
       </NavigationContainer>
             
 
