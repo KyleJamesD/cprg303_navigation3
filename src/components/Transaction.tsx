@@ -17,7 +17,16 @@ import {
   import { useArray1 } from "../Main";
   import { TouchableOpacity } from "react-native";
   import { TransactionType_bgColor } from "../utility/utility";
+  import Details from "./Details";
 
+
+  type objArray1Type = {
+    id: number;
+    title: string;
+    description: string;
+    amount: string;
+    radioType: string;
+  };
 
 
   function Transactions({navigation} : {navigation : any}) : React.JSX.Element {
@@ -27,9 +36,7 @@ import {
 const { Array1, setArray1 } = useArray1();
 
 
-function checkarray () {
-    console.log(Array1);
-}
+
 
     
     function plusButtonPress () {
@@ -39,6 +46,9 @@ function checkarray () {
       navigation.navigate('AddTransactions')
     }
 
+    function transPress (task: {id: number; }) {
+      navigation.navigate('Details', task)
+    }
 
  
 
@@ -53,7 +63,7 @@ function checkarray () {
             (<ScrollView>
                             {Array1.map((task,id)  => 
                               (<View key={id} style={[styles.outertransactionbox,{}]}>
-                                <TouchableOpacity style={[styles.innertransactionbox,{backgroundColor:TransactionType_bgColor[task.radioType]}]} >
+                                <TouchableOpacity onPress={()=>transPress(task)} style={[styles.innertransactionbox,{backgroundColor:TransactionType_bgColor[task.radioType]}]} >
                                   <Text style={styles.transactionTxt}>{task.title}</Text><Text style={styles.transactionTxt}>$ {task.amount}</Text>
                                   </TouchableOpacity>
                                   </View>))}

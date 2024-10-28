@@ -8,7 +8,8 @@ import {
     useColorScheme,
     View,
     Button,
-    Pressable
+    Pressable,
+    TextInput
   } from 'react-native';
 
   import { useState } from "react";
@@ -29,16 +30,19 @@ import { useEffect } from "react";
     // must define the type of object (and we would just use any type which is probably not good practice)coming from route if you are passing something
     //unfortunately we cannot pass usestate hooks setter function
     //function AddTransaction({ navigation, route }: {navigation: any, route: any }) : React.JSX.Element {
-    function AddTransaction({ navigation }: {navigation: any}) : React.JSX.Element {
+    function EditTransaction({ navigation, route }: {navigation: any , route: any}) : React.JSX.Element {
 
     // to destructure parameters from route.
     //const {array1, setarray1} = route.params;
 
-    
+    const { id: idProp, title: titleProp, description: descriptionProp, amount: amountProp, radioType: radioTypeProp } = route.params;
+
+    //***************************use Effect To update Fields to Cards Values********************************** */
+
 
     //***************************Get Transaction array from Context Provider********************************** */
     const { Array1, setArray1 } = useArray1();
-
+    
     let nextId = Array1.length;
 
     function checkarray () {
@@ -48,25 +52,44 @@ import { useEffect } from "react";
 
 
     //***************************InputBox states + radio button state and error reset********************************** */
-        const [inputTxtTitle, setInputTxtTitle] = useState('');
-        const [inputTxtDescription, setInputTxtDescription] = useState('');
-        const [inputTxtCost, setInputTxtCost] = useState('');
+        const [inputTxtTitle, setInputTxtTitle] = useState(titleProp);
+        const [inputTxtDescription, setInputTxtDescription] = useState(descriptionProp);
+        const [inputTxtCost, setInputTxtCost] = useState(amountProp);
 
-        const [radioType, setradioType] = useState('0');
+        const [radioType, setradioType] = useState(radioTypeProp);
 
 
         function inputsetter1 (newTxtTitle : string) {
             setInputTxtTitle(newTxtTitle)
+            if (newTxtTitle != ''){
             seterrorCheckTitle(false)
+            }
+            else {
+                seterrorCheckTitle(true)
+            }
+            
         }
         function inputsetter2 (newTxtDescription :  string) {
             setInputTxtDescription(newTxtDescription)
-            seterrorCheckDescription(false)
+            if (newTxtDescription != ''){
+                seterrorCheckDescription(false)
+            }
+            else {
+                seterrorCheckDescription(true)
+            }
+            
         }
         function inputsetter3 (newTxtCost : string) {
             const numericText = newTxtCost.replace(/[^0-9]/g, "");
             setInputTxtCost(numericText)
-            seterrorCheckAmount(false)
+            if (newTxtCost != ''){
+                seterrorCheckAmount(false)
+            }
+            else {
+                seterrorCheckAmount(true)
+            }
+            
+            
         }
 
 //***************************UseState for Error Message and conditional Render********************************** */
@@ -109,28 +132,23 @@ import { useEffect } from "react";
         }
 
 
-        useEffect(() => {
-            console.log('Updated Array1:', Array1);
-          }, [Array1]);
         
 
 
     return (
             <View style={styles.container}>
                 <View style={styles.inputContainer}>
-                <InputBox inputTxt={inputTxtTitle} setInputTxt={inputsetter1} inputAreaLines={1} placeholderword="Title"></InputBox>
+                <InputBox inputTxt={inputTxtTitle} setInputTxt={inputsetter1} inputAreaLines={1} placeholderword="Title different"></InputBox>
                    {errorCheckTitle ? <Text style={styles.errormsg} >Title Cannot be Empty</Text> : null } 
 
                 <InputBox inputTxt={inputTxtDescription} setInputTxt={inputsetter2} inputAreaLines={4} placeholderword="Add Some Description..."></InputBox>
                 {errorCheckDescription ? <Text style={styles.errormsg} >Description Cannot Be Empty</Text> : null }
 
-                <InputBox inputTxt={inputTxtCost} setInputTxt={inputsetter3} inputAreaLines={1} placeholderword="Amount in CAD.." inputType="numeric"></InputBox>
+                <InputBox inputTxt={inputTxtCost} setInputTxt={inputsetter3} inputAreaLines={1} placeholderword="Amount in CAD.. diffenret" inputType="numeric"></InputBox>
                 {errorCheckAmount ? <Text style={styles.errormsg} >Amount Cannot Be Empty</Text> : null }
 
-
-
                 </View>
-                <RadioButtons radioType={'0'} setradioType={setradioType}></RadioButtons>
+                <RadioButtons radioType={radioType} setradioType={setradioType}></RadioButtons>
 
                 <Pressable style={styles.submitButton} onPress={submitTransaction}>
                     <Text style={styles.submitButtonText}>Submit</Text>
@@ -172,7 +190,8 @@ import { useEffect } from "react";
     errormsg: {
         color:'red',
         fontSize: 15,
-    }
+    },
+
   }) 
 
-export default AddTransaction;
+export default EditTransaction;

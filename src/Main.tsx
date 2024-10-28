@@ -24,36 +24,38 @@ import {
 
 import AddTransaction from './components/AddTransaction';
 import Transactions from './components/Transaction';
+import Details from './components/Details';
+import EditTransaction from './components/EditTransactions';
 
 
   const Stack = createNativeStackNavigator();
  //***********************React Context for Global Prop sharing**************************** */
-// Define types for the transaction context
-type Array1ContextType = {
-  Array1: any[]; 
-  setArray1: React.Dispatch<React.SetStateAction<any[]>>;
-};
+    // Define types for the transaction context
+    type Array1ContextType = {
+      Array1: any[]; 
+      setArray1: React.Dispatch<React.SetStateAction<any[]>>;
+    };
 
 // Create context with default value as undefined to handle nullable type
 const TransactionContext = createContext<Array1ContextType | undefined>(undefined);
 
-// Define the provider's props
-type TransactionProviderProps = {
-  children: ReactNode;
-};
+    // Define the provider's props
+    type TransactionProviderProps = {
+      children: ReactNode;
+    };
 
-// Provider component
-const TransactionProvider: React.FC<TransactionProviderProps> = ({ children }) => {
-  const [Array1, setArray1] = useState<any[]>([]);
-  
-  return (
-      <TransactionContext.Provider value={{ Array1, setArray1 }}>
-          {children}
-      </TransactionContext.Provider>
-  );
-};
+    // Provider component
+    const TransactionProvider: React.FC<TransactionProviderProps> = ({ children }) => {
+      const [Array1, setArray1] = useState<any[]>([]);
+      
+      return (
+          <TransactionContext.Provider value={{Array1, setArray1}}>
+              {children}
+          </TransactionContext.Provider>
+      );
+    };
 
-      // Custom hook for easy access
+      // Custom hook for easy import into other compoenents
       const useArray1 = (): Array1ContextType => {
         const context = useContext(TransactionContext);
         if (!context) {
@@ -93,12 +95,6 @@ const TransactionProvider: React.FC<TransactionProviderProps> = ({ children }) =
                 </TouchableOpacity>
             );
         }
-
-        //***********************Radio Button Functions**************************** */
-
-
-        //***************************InputBox********************************** */
-          const [inputTxt, setInputTxt] = useState('');
     
 
     return (
@@ -125,10 +121,7 @@ const TransactionProvider: React.FC<TransactionProviderProps> = ({ children }) =
                                       name="Transactions"
                                       component={Transactions}
                                       // options attribute takes an Object or a function that returns an Object
-                                      options={{
-                                          title: "Transactions",
-                                          headerRight: ()=>headerRightButton("About"),
-                                      }}
+                                      
                                       
                                       />
 
@@ -142,6 +135,32 @@ const TransactionProvider: React.FC<TransactionProviderProps> = ({ children }) =
                                       // You can set initial paramters in route object.
                                       //initialParams={{id: -1, desc: "default description"}}
                                       // using a function to set Options 
+                                      
+                                      />
+
+                                      <Stack.Screen
+                                      name="Details"
+                                      component={Details}
+                                      options={({ navigation }) => ({
+                                        title: 'Details',
+                                        headerLeft: () => headerLeftButton(navigation),
+                                        headerRight: () => headerRightButton('Edit'),
+                                      })}
+                                      // options attribute takes an Object or a function that returns an Object
+                                      
+                                      
+                                      />
+
+                                      <Stack.Screen
+                                      name="EditTransactions"
+                                      component={EditTransaction}
+                                      options={({ navigation }) => ({
+                                        title: 'Edit Transactions',
+                                        headerLeft: () => headerLeftButton(navigation),
+                                        headerRight: () => headerRightButton('Edit'),
+                                      })}
+                                      // options attribute takes an Object or a function that returns an Object
+                                      
                                       
                                       />
 

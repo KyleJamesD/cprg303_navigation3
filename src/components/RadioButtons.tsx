@@ -12,11 +12,12 @@ import {
   } from 'react-native';
 
   type radioProps = {
+    radioType: string; 
     setradioType: (value: string) => void;
   }
   
 
- function RadioButtons( { setradioType }: radioProps) : React.JSX.Element {
+ function RadioButtons( { setradioType,radioType }: radioProps) : React.JSX.Element {
 
 
 
@@ -39,7 +40,7 @@ import {
     ]
         ), []);
 
-    const [selectedId, setSelectedId] = useState<string >('0');
+    const [selectedId, setSelectedId] = useState<string >(radioType);
 
     //console.log(selectedId)
     //console.log(selectedId);
