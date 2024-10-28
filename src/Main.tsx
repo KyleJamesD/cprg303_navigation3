@@ -14,7 +14,9 @@ import {
     Image
   } from 'react-native';
 
-
+  import { ReactNode } from 'react';
+  import { createContext } from "react";
+  import { useContext } from 'react';
   import { useState } from 'react';
   import { NavigationContainer } from "@react-navigation/native";
   import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -23,12 +25,51 @@ import {
 import AddTransaction from './components/AddTransaction';
 import Transactions from './components/Transaction';
 
+
   const Stack = createNativeStackNavigator();
+ //***********************React Context for Global Prop sharing**************************** */
+// Define types for the transaction context
+type Array1ContextType = {
+  Array1: any[]; 
+  setArray1: React.Dispatch<React.SetStateAction<any[]>>;
+};
+
+// Create context with default value as undefined to handle nullable type
+const TransactionContext = createContext<Array1ContextType | undefined>(undefined);
+
+// Define the provider's props
+type TransactionProviderProps = {
+  children: ReactNode;
+};
+
+// Provider component
+const TransactionProvider: React.FC<TransactionProviderProps> = ({ children }) => {
+  const [Array1, setArray1] = useState<any[]>([]);
+  
+  return (
+      <TransactionContext.Provider value={{ Array1, setArray1 }}>
+          {children}
+      </TransactionContext.Provider>
+  );
+};
+
+      // Custom hook for easy access
+      const useArray1 = (): Array1ContextType => {
+        const context = useContext(TransactionContext);
+        if (!context) {
+            throw new Error("useTransactions must be used within a TransactionProvider");
+        }
+        return context;
+      };
+
+    export { TransactionProvider, useArray1 };
+
+
 
   function Main() : React.JSX.Element {            
 
 
-    //***********************************Screen options funciotns (the Header)*************************************** */
+    //***********************************Screen options functions (the Header)*************************************** */
 
             function headerRightButton( title: string) : React.JSX.Element {
               return (
@@ -43,7 +84,7 @@ import Transactions from './components/Transaction';
           function headerLeftButton(navigation : any) : React.JSX.Element {
             return (
                 <TouchableOpacity
-                onPress={() => navigation.navigate("Transactions")}
+                onPress={() => navigation.navigate('Transactions')}
                 >
                     <Image source={require('../assets/icons/left-arrow.png')} // Adjust the path based on your folder structure
                 style={styles.iconstyle} // Apply styles to the image
@@ -58,14 +99,12 @@ import Transactions from './components/Transaction';
 
         //***************************InputBox********************************** */
           const [inputTxt, setInputTxt] = useState('');
-          
-
-    //***************************Object Array of transactions********************************** */
-          const [transactionArray,settransactionArray] = useState([]);
+    
 
     return (
 
         <NavigationContainer >
+          <TransactionProvider>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.container}>
               <Stack.Navigator 
@@ -110,6 +149,7 @@ import Transactions from './components/Transaction';
               </Stack.Navigator>
               </View>
               </TouchableWithoutFeedback>
+              </TransactionProvider>
       </NavigationContainer>
             
 

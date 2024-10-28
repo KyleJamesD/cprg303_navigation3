@@ -12,29 +12,60 @@ import {
   } from 'react-native';
 
   import { useState } from "react";
-
+  import { useArray1 } from "../Main";
+import { useEffect } from "react";
   import RadioButtons from "./RadioButtons";
   import InputBox from "./InputBox";
 
-  type InputBoxProps = {
-    inputTxt: string;
-    setInputTxt: (text: string) => void;
-    inputAreaHeight: number;
-    placeholderword: string;
-};
-
-
-
-  function AddTransaction({navigation }: {navigation: any }) : React.JSX.Element {
 
 
 
 
-    //***************************InputBox states and error reset********************************** */
+
+
+
+  type objArray1Type = {
+    id: number;
+    title: string;
+    description: string;
+    amount: string;
+    radioType: string;
+  };
+
+  let nextId = 0;
+
+
+
+
+
+
+
+    // must define the type of object (and we would just use any type which is probably not good practice)coming from route if you are passing something
+    //unfortunately we cannot pass usestate hooks setter function
+    //function AddTransaction({ navigation, route }: {navigation: any, route: any }) : React.JSX.Element {
+    function AddTransaction({ navigation }: {navigation: any}) : React.JSX.Element {
+
+    // to destructure parameters from route.
+    //const {array1, setarray1} = route.params;
+
+    
+
+    //***************************Get Transaction array from Context Provider********************************** */
+    const { Array1, setArray1 } = useArray1();
+
+
+    function checkarray () {
+        console.log(Array1);
+        console.log('the radio type currently is:'+radioType);
+    }
+
+
+    //***************************InputBox states + radio button state and error reset********************************** */
         const [inputTxtTitle, setInputTxtTitle] = useState('');
         const [inputTxtDescription, setInputTxtDescription] = useState('');
         const [inputTxtCost, setInputTxtCost] = useState('');
 
+        const [radioType, setradioType] = useState('1');
 
 
         function inputsetter1 (newTxtTitle : string) {
@@ -71,8 +102,29 @@ import {
                 console.log(inputTxtTitle )
                 console.log( inputTxtDescription)
                 console.log( inputTxtCost)
+
+            const newObj : objArray1Type = {
+                id: nextId++,
+                title: inputTxtTitle,
+                description: inputTxtDescription,
+                amount: inputTxtCost,
+                radioType: radioType,
+                
+            }
+            setArray1([...Array1,newObj])
+            //will not show the new array because react btaches state changes, so instead we use a useeffect below to see the new objects being added.
+            //console.log(Array1)
+            navigation.navigate('Transactions');
+
+
+
             }
         }
+
+
+        useEffect(() => {
+            console.log('Updated Array1:', Array1);
+          }, [Array1]);
         
 
 
@@ -91,11 +143,15 @@ import {
 
 
                 </View>
-                <RadioButtons></RadioButtons>
+                <RadioButtons setradioType={setradioType}></RadioButtons>
 
                 <Pressable style={styles.submitButton} onPress={submitTransaction}>
                     <Text style={styles.submitButtonText}>Submit</Text>
                 </Pressable>
+                <Pressable style={styles.submitButton} onPress={checkarray}>
+                    <Text style={styles.submitButtonText}>ehck array 1</Text>
+                </Pressable>
+                
 
             </View>
 

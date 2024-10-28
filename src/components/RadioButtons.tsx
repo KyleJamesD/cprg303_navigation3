@@ -11,7 +11,14 @@ import {
     View,
   } from 'react-native';
 
- function RadioButtons() : React.JSX.Element {
+  type radioProps = {
+    setradioType: (value: string) => void;
+  }
+  
+
+ function RadioButtons( { setradioType }: radioProps) : React.JSX.Element {
+
+
 
     const radioButtons: RadioButtonProps[] = useMemo(() => ([
         {
@@ -40,6 +47,7 @@ import {
     function onPressButton (newselectedId : string)  {
         console.log(newselectedId);
         setSelectedId(newselectedId);
+        setradioType(newselectedId);
     }
 
     return (
