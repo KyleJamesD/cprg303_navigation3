@@ -43,7 +43,6 @@ import { useEffect } from "react";
     //***************************Get Transaction array from Context Provider********************************** */
     const { Array1, setArray1 } = useArray1();
     
-    let nextId = Array1.length;
 
     function checkarray () {
         console.log(Array1);
@@ -96,44 +95,81 @@ import { useEffect } from "react";
         const [errorCheckTitle,seterrorCheckTitle] = useState(false);
         const [errorCheckDescription,seterrorCheckDescription] = useState(false);
         const [errorCheckAmount,seterrorCheckAmount] = useState(false);
+
+
+//***************************Functions to edit a transaction********************************** */
+type objArray1Type = {
+    id: number;
+    title: string;
+    description: string;
+    amount: string;
+    radioType: string;
+  };
+    /**
+     * Add a new entry in TRANSACTION_DATA array if it is not present. Update the entry if it is already present.
+     * @param entry TransactionEntry object. 
+     */
+    function addEditTransaction(entry : objArray1Type) {
+        const currIdx = getIndex(entry);
+        if(currIdx != -1) {
+            Array1.splice(currIdx,1);
+        }
+        Array1.push(entry);
+    }
+
+    /**
+     * Returns the index of TransactionEntry in TRANSACTION_DATA or -1 if entry is not present.
+     * @param entry TransactionEntry object to search in the dataset. To find the entry in dataset, id is used.
+     * @returns index of the entry in the dataset, -1 if the entry is not present.
+     */
+    function getIndex(entry : objArray1Type) : number{
+        for(let i = 0; i<Array1.length; i++) {
+            if(Array1[i].id === entry.id)
+                return i;
+        }
+        return -1;
+    }
+
+
+
         
 
-        function submitTransaction () {
-            if (inputTxtTitle == ''){
-                seterrorCheckTitle(true);
-            }
-            if (inputTxtDescription == ''){
-                seterrorCheckDescription(true);
-            }
-            if (inputTxtCost == ''){
-                seterrorCheckAmount(true);
-            }
-            else {
-                console.log(inputTxtTitle )
-                console.log( inputTxtDescription)
-                console.log( inputTxtCost)
+    function submitTransaction () {
+        if (inputTxtTitle == ''){
+            seterrorCheckTitle(true);
+        }
+        if (inputTxtDescription == ''){
+            seterrorCheckDescription(true);
+        }
+        if (inputTxtCost == ''){
+            seterrorCheckAmount(true);
+        }
+        if(inputTxtTitle !== '' && inputTxtDescription !== '' && inputTxtCost !== '' ) {
+            console.log(inputTxtTitle )
+            console.log( inputTxtDescription)
+            console.log( inputTxtCost)
 
-            const newObj : objArray1Type = {
-                id: nextId++,
-                title: inputTxtTitle,
-                description: inputTxtDescription,
-                amount: inputTxtCost,
-                radioType: radioType,
-                
-            }
-            setArray1([...Array1,newObj])
-            //will not show the new array because react btaches state changes, so instead we use a useeffect below to see the new objects being added.
-            //console.log(Array1)
-            navigation.navigate('Transactions');
-
-
-
-            }
+        const newObj : objArray1Type = {
+            id: idProp,
+            title: inputTxtTitle,
+            description: inputTxtDescription,
+            amount: inputTxtCost,
+            radioType: radioType,
+            
         }
 
+        addEditTransaction(newObj)
+
+        setArray1([...Array1])
+        //will not show the new array because react btaches state changes, so instead we use a useeffect below to see the new objects being added.
+        //console.log(Array1)
+        navigation.navigate('Transactions');
+        }
+    }
+
 
         
-
+    
 
     return (
             <View style={styles.container}>

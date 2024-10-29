@@ -85,7 +85,7 @@ import { useEffect } from "react";
             if (inputTxtCost == ''){
                 seterrorCheckAmount(true);
             }
-            else {
+            if(inputTxtTitle !== '' && inputTxtDescription !== '' && inputTxtCost !== '' ) {
                 console.log(inputTxtTitle )
                 console.log( inputTxtDescription)
                 console.log( inputTxtCost)
