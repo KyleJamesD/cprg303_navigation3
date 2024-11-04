@@ -102,7 +102,6 @@ const TransactionContext = createContext<Array1ContextType | undefined>(undefine
         <NavigationContainer >
           <TransactionProvider>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <View style={styles.container}>
               <Stack.Navigator 
               initialRouteName="Transactions"
               // Add common header style to all the screens.
@@ -166,7 +165,6 @@ const TransactionContext = createContext<Array1ContextType | undefined>(undefine
 
 
               </Stack.Navigator>
-              </View>
               </TouchableWithoutFeedback>
               </TransactionProvider>
       </NavigationContainer>
@@ -176,10 +174,6 @@ const TransactionContext = createContext<Array1ContextType | undefined>(undefine
   }
 
   const styles = StyleSheet.create({
-    container:{
-      flex: 1,
-
-    },
     item: {
         
     },

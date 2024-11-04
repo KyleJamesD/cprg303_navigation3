@@ -130,14 +130,15 @@ import { useEffect } from "react";
 
 
                 </View>
-                <RadioButtons radioType={'0'} setradioType={setradioType}></RadioButtons>
-
+                    <View style={styles.radiocomp}>
+                    <RadioButtons radioType={'0'} setradioType={setradioType}></RadioButtons>
+                    </View>
                 <Pressable style={styles.submitButton} onPress={submitTransaction}>
                     <Text style={styles.submitButtonText}>Submit</Text>
                 </Pressable>
-                <Pressable style={styles.submitButton} onPress={checkarray}>
-                    <Text style={styles.submitButtonText}>ehck array 1</Text>
-                </Pressable>
+                {/**<Pressable style={styles.submitButton} onPress={checkarray}>
+                    <Text style={styles.submitButtonText}>check array 1</Text>
+                </Pressable>*/}
                 
 
             </View>
@@ -172,6 +173,11 @@ import { useEffect } from "react";
     errormsg: {
         color:'red',
         fontSize: 15,
+    },
+    radiocomp: {
+        marginTop:15,
+        marginLeft:50,
+
     }
   }) 
 

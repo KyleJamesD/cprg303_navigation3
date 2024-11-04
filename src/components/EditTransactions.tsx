@@ -184,14 +184,15 @@ type objArray1Type = {
                 {errorCheckAmount ? <Text style={styles.errormsg} >Amount Cannot Be Empty</Text> : null }
 
                 </View>
+                <View style={styles.radiocomp}>
                 <RadioButtons radioType={radioType} setradioType={setradioType}></RadioButtons>
-
+                </View>
                 <Pressable style={styles.submitButton} onPress={submitTransaction}>
                     <Text style={styles.submitButtonText}>Submit</Text>
                 </Pressable>
-                <Pressable style={styles.submitButton} onPress={checkarray}>
+                {/**<Pressable style={styles.submitButton} onPress={checkarray}>
                     <Text style={styles.submitButtonText}>ehck array 1</Text>
-                </Pressable>
+                </Pressable>*/}
                 
 
             </View>
@@ -227,6 +228,12 @@ type objArray1Type = {
         color:'red',
         fontSize: 15,
     },
+    radiocomp: {
+        marginTop:15,
+        marginLeft:50,
+        marginBottom: 15,
+
+    }
 
   }) 
 

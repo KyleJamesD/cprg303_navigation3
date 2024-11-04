@@ -50,33 +50,29 @@ React.useEffect(() => {
 }, []);
 
     return (
-
-        <View>  
             <View style={style.outisdeContainer}>
-          
-            <View style={style.profileCard}>
-                <Image style={style.bannerImage} source={require('../../assets/banner2.jpg')} />
-                <Text style={style.title}>{title}</Text>
-                <Text style={style.amount}>{amount}</Text>
-                <Text style={style.description}>{description}</Text>      
+              <View style={style.profileCard}>
+                  <Image style={style.bannerImage} source={require('../../assets/banner2.jpg')} />
+                  <Text style={style.title}>{title}</Text>
+                  <Text style={style.amount}>{amount}</Text>
+                  <Text style={style.description}>{description}</Text>      
+              </View>
             </View>
-        
-            </View>
-        </View>
-
     );
 
   }
 
   const style = StyleSheet.create({
     outisdeContainer: {
+      height: '100%',
       alignItems: 'center',
+      justifyContent: 'center',
 
     },
 
     profileCard: {
       alignItems: 'center',
-      height:500,
+      height:400,
       width: '80%',
       elevation: 20,
       borderRadius: 20,
